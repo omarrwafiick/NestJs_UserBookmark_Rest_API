@@ -1,0 +1,10 @@
+nest g module //name
+nest g service //name --no-spec
+npm install prisma --save-dev
+>> npm install @prisma/client
+npx prisma init
+docker compose up dev-db -d
+docker compose down
+npx prisma studio
+npx prisma migrate dev //name init
+nest g module //name
