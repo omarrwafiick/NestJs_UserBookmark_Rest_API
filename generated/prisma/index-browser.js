@@ -135,9 +135,51 @@ exports.Prisma.BookmarkScalarFieldEnum = {
   title: 'title',
   description: 'description',
   link: 'link',
+  favicon: 'favicon',
+  userId: 'userId',
+  folderId: 'folderId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  userId: 'userId'
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FolderScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TagScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.NoteScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  bookmarkId: 'bookmarkId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SharedBookmarkScalarFieldEnum = {
+  id: 'id',
+  bookmarkId: 'bookmarkId',
+  sharedWithId: 'sharedWithId',
+  permissions: 'permissions',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.VisitScalarFieldEnum = {
+  id: 'id',
+  bookmarkId: 'bookmarkId',
+  visitedAt: 'visitedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -158,7 +200,12 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Bookmark: 'Bookmark'
+  Bookmark: 'Bookmark',
+  Folder: 'Folder',
+  Tag: 'Tag',
+  Note: 'Note',
+  SharedBookmark: 'SharedBookmark',
+  Visit: 'Visit'
 };
 
 /**
