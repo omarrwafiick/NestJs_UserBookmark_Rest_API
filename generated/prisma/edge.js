@@ -143,7 +143,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\sphinx\\Documents\\My Projects\\Apis\\Rest\\Nest\\nest-proj\\generated\\prisma",
+      "value": "C:\\Users\\sphinx\\Documents\\My Projects\\Apis\\Rest\\Nest\\bookmark\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -157,7 +157,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\sphinx\\Documents\\My Projects\\Apis\\Rest\\Nest\\nest-proj\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\sphinx\\Documents\\My Projects\\Apis\\Rest\\Nest\\bookmark\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

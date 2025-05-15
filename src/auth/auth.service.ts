@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, Req } from "@nestjs/common";
+import { ForbiddenException, Injectable, InternalServerErrorException, Req } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
 import { AddUserDto, AuthDto } from "./dtos/auth.dto";
 import * as argon from "argon2"; 
@@ -23,13 +23,16 @@ export class AuthService{
             });
             
             return user.id;
-        } catch (error) {
-            if(error instanceof PrismaClientKnownRequestError) {
-                if(error.code === "P2002")
-                    throw new ForbiddenException('Credentials already taken');
+        }  catch (error) {
+            if (error instanceof PrismaClientKnownRequestError) {
+                if (error.code === 'P2002') {
+                throw new ForbiddenException('Credentials already taken');
+                }
             }
-            return -1;
-        }
+            console.error(error);
+            throw new InternalServerErrorException('Something went wrong');
+            }
+
     }
 
     async login(dto:AuthDto):Promise<string|null>{

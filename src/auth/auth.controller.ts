@@ -8,6 +8,7 @@ export class AuthController{
     @Post('signup') 
     async signup(@Body() body:AddUserDto){
         const result = await this.authservice.signup(body);
+        console.log(result)
         return result > 0 ? {messge: 'Success', userId: result } : "Failed";
     }
 

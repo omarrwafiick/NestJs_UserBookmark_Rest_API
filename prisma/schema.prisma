@@ -14,9 +14,12 @@ model User{
   password String 
   firstName String?
   lastName String?
+  bookmarks Bookmark[]
+  folders Folder[]
+  tags Tag[]  
+  sharedBookmarks SharedBookmark[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt  
-  bookmarks Bookmark[]
 
   @@map("Users")
 }
@@ -26,10 +29,76 @@ model Bookmark{
   title String
   description String
   link String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  favicon String?
   userId Int
   user User @relation( fields: [userId], references: [id]) 
-   
+  folderId Int?
+  folder Folder? @relation(fields: [folderId], references: [id])
+  tags Tag[] @relation("BookmarkTags")
+  sharedBookmarks SharedBookmark[]
+  notes Note[]
+  history Visit[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@map("BookMarks")
+}
+
+model Folder{ 
+  id Int @id @default(autoincrement())
+  name String
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  bookmarks Bookmark[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+   
+  @@map("Folders")
+}
+
+model Tag{ 
+  id Int @id @default(autoincrement())
+  name String
+  bookmarks Bookmark[] @relation("BookmarkTags")
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+   
+  @@map("tags")
+}
+
+model Note{ 
+  id Int @id @default(autoincrement())
+  title String
+  description String
+  bookmarkId Int
+  bookmark Bookmark @relation(fields: [bookmarkId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+   
+  @@map("Notes")
+}
+
+model SharedBookmark{ 
+  id Int @id @default(autoincrement())
+  bookmarkId Int
+  bookmark Bookmark @relation(fields: [bookmarkId], references: [id])
+  sharedWithId Int
+  sharedWith User @relation(fields: [sharedWithId], references: [id]) 
+  permissions String 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+   
+  @@map("SharedBookmarks")
+  @@unique([bookmarkId, sharedWithId])
+}
+ 
+model Visit{ 
+  id Int @id @default(autoincrement())
+  bookmarkId Int
+  bookmark  Bookmark  @relation(fields: [bookmarkId], references: [id])
+  visitedAt DateTime  @default(now())
+
+  @@map("Visits")
 }
