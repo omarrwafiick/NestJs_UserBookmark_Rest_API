@@ -1,8 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { VisitService } from './visit.service';
 import { GetUser } from "src/auth/decorator/getuser.decorator";
 import { User } from "generated/prisma";
+import { JwtGuard } from "src/auth/guard/jwt.guard";
 
+@UseGuards(JwtGuard)
 @Controller('visit')
 export class VisitController {
     constructor(private visitservice:VisitService){}

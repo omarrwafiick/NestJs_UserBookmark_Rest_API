@@ -34,17 +34,7 @@ export class UserService{
     }
 
     async delete(id:number):Promise<boolean>{
-        try {
-            await this.dbService.user.delete({
-                where:{
-                    id: id
-                }
-            })
-            return true;
-        } catch (error) {
-            console.log(error)
-            return false;
-        } 
+        return this.dbService.deleteById('user', id);
     }
 
 }

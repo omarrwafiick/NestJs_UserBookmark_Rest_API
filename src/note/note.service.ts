@@ -33,6 +33,15 @@ export class NoteService {
 
     async createNote(dto: CreateNoteDto):Promise<boolean>{
         try {
+            const reachMax = await this.dbService.bookmark.findMany({
+                where:{
+                    id: dto.bookmarkId
+                },
+                include:{
+                    notes: true
+                }
+            });
+            if(reachMax.length > 6) return false;
             await this.dbService.note.create({
                 data:{
                     title: dto.title,
@@ -47,15 +56,6 @@ export class NoteService {
     } 
 
     async deleteNote(id: number):Promise<boolean>{
-        try {
-            await this.dbService.note.delete({
-                where:{
-                    id: id
-                }
-            });
-            return true;
-        } catch (error) {
-            return false;
-        }
+        return this.dbService.deleteById('note', id);
     }
 }

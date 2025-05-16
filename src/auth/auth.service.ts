@@ -18,7 +18,14 @@ export class AuthService{
                     email: dto.email,
                     password: hashedPassword,
                     firstName: dto.firstName,
-                    lastName: dto.lastName
+                    lastName: dto.lastName,
+                    tags: {
+                        create:[
+                            { name: 'Work' },
+                            { name: 'Personal' },
+                            { name: 'Read Later' }
+                        ]
+                    }
                 }
             });
             

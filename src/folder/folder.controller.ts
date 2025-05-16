@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { FolderService } from "./folder.service";
 import { GetUser } from "src/auth/decorator/getuser.decorator";
 import { User } from "generated/prisma";
 import { CreateFolderDto, UpdateFolderDto } from "./dtos/folder.dto";
+import { JwtGuard } from "src/auth/guard/jwt.guard";
 
+@UseGuards(JwtGuard)
 @Controller('folder')
 export class FolderController {
     constructor(private folderservice:FolderService){}

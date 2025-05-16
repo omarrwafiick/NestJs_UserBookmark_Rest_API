@@ -11,7 +11,8 @@ export class SharedService {
             try {
                 return await this.dbService.sharedBookmark.findMany({
                     where:{
-                        sharedWithId: userid
+                        sharedWithId: userid,
+                        permissions: 'read'
                     },
                     include: {
                         bookmark: true,  
@@ -38,15 +39,6 @@ export class SharedService {
     } 
     
     async deleteShare(id: number):Promise<boolean>{
-        try {
-            await this.dbService.sharedBookmark.delete({
-                where:{
-                    id: id
-                }
-            });
-            return true;
-        } catch (error) {
-            return false;
-        }
-    }        
+        return this.dbService.deleteById('sharedBookmark', id);
+    }       
 }

@@ -50,15 +50,6 @@ export class TagService {
     } 
     
     async deleteTag(id: number):Promise<boolean>{
-        try {
-            await this.dbService.tag.delete({
-                where:{
-                    id: id
-                }
-            });
-            return true;
-        } catch (error) {
-            return false;
-        }
+        return this.dbService.deleteById('tag', id);
     } 
 }

@@ -20,15 +20,20 @@ export class VisitService {
     
     async getAllUserVisits(userid: number):Promise<Visit[]>{
             try {
+                const todayDate = new Date();  
                 return await this.dbService.visit.findMany({
                     where: {
                         bookmark: {
-                        userId: userid,  
+                            userId: userid,  
+                            createdAt: {
+                                lte: todayDate
+                            } 
                         },
                     },
                     include: {
                         bookmark: true,  
                     },
+                    take:10
                     });
             } catch (error) {
                 return [];

@@ -33,6 +33,12 @@ export class FolderService {
 
     async createFolder(dto: CreateFolderDto):Promise<boolean>{
         try {
+            const duplicate = await this.dbService.folder.findFirst({
+                where:{
+                    name : dto.name
+                }
+            });
+            if(duplicate) return false;
             await this.dbService.folder.create({
                 data:{
                     name: dto.name,
@@ -65,15 +71,6 @@ export class FolderService {
     }
 
     async deleteFolder(id: number):Promise<boolean>{
-        try {
-            await this.dbService.folder.delete({
-                where:{
-                    id: id
-                }
-            });
-            return true;
-        } catch (error) {
-            return false;
-        }
+        return this.dbService.deleteById('folder', id);
     }
 }

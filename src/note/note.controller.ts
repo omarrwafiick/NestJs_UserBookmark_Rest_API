@@ -1,7 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from "@nestjs/common";
 import { NoteService } from "./note.service";
 import { CreateNoteDto } from "./dtos/note.dto";
+import { JwtGuard } from "src/auth/guard/jwt.guard";
 
+@UseGuards(JwtGuard)
 @Controller('note')
 export class NoteController {
     constructor(private noteservice:NoteService){}

@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from "@nestjs/common";
 import { SharedService } from "./shared.service";
 import { User } from "generated/prisma";
 import { GetUser } from "src/auth/decorator/getuser.decorator";
 import { CreateSharedDto } from "./dtos/shared.dto";
+import { JwtGuard } from "src/auth/guard/jwt.guard";
 
+@UseGuards(JwtGuard)
 @Controller('shared')
 export class SharedController {
     constructor(private sharedservice:SharedService){}

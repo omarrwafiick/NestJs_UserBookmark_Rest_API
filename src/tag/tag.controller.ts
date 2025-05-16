@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { TagService } from "./tag.service";
 import { User } from "generated/prisma";
 import { GetUser } from "src/auth/decorator/getuser.decorator";
 import { CreateTagDto } from "./dtos/tag.dto";
+import { JwtGuard } from "src/auth/guard/jwt.guard";
 
-
+@UseGuards(JwtGuard)
 @Controller('tag')
 export class TagController {
     constructor(private tagservice:TagService){}

@@ -66,6 +66,12 @@ export class BookmarkService{
     
     async create(dto: CreateBookmarkDto):Promise<number>{
         try {
+            const exists = await this.dbService.bookmark.findFirst({
+              where:{
+                link: dto.link
+              }
+            });
+            if(exists) return -1;
             const newBookmark = await this.dbService.bookmark.create({ data:{
                 title: dto.title,
                 description: dto.description,
@@ -79,26 +85,7 @@ export class BookmarkService{
     }
 
     async delete(bookmarkId: number): Promise<boolean> {
-      try {
-        const bookmark = await this.dbService.bookmark.findUnique({
-          where: {
-            id: bookmarkId, 
-          },
-        });
-
-        if (!bookmark) return false;
-
-        await this.dbService.bookmark.delete({
-          where: {
-            id: bookmark.id, 
-          },
-        });
-
-        return true;
-      } catch (error) { 
-        console.error(error);
-        return false;
-      }
+       return this.dbService.deleteById('bookmark', bookmarkId);
     }
 
 }
