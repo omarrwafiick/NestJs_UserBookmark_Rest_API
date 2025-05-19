@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from "@nestjs/common";
 import { SharedService } from "./shared.service";
 import { User } from "generated/prisma";
 import { GetUser } from "src/auth/decorator/getuser.decorator";
@@ -10,20 +10,20 @@ import { JwtGuard } from "src/auth/guard/jwt.guard";
 export class SharedController {
     constructor(private sharedservice:SharedService){}
 
-    @Get('')
+    @Get('') 
     async getAllSharedWithUser(@GetUser() user:User){
         const result = await this.sharedservice.getAllShared(user.id);
         return result.length > 0? result : "Nothing is shared with you";
     }
  
     @Post('')
-    async create( @Body() dto:CreateSharedDto){
-        const result = await this.sharedservice.createShare(dto);
+    async create(@GetUser() user:User, @Body() dto:CreateSharedDto){
+        const result = await this.sharedservice.createShare(dto, user.id);
         return result ? result : "Failed";
     }
 
     @Delete(':id')
-    async delete(@Param() id:number){
+    async delete(@Param('id', ParseIntPipe) id:number){
         const result = await this.sharedservice.deleteShare(id);
         return result ? result : "Failed";
     }

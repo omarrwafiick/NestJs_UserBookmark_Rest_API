@@ -19,11 +19,13 @@ export class BookmarkService{
 
     async getById(id:number):Promise<Bookmark | null>{
         try { 
-           return await this.dbService.bookmark.findFirst({
+          console.log(id)
+          var result = await this.dbService.bookmark.findUnique({
             where:{
-              id: id
+              id
             }
-           })
+           }) 
+            return result;
         } catch (error) { 
           return null;
         }

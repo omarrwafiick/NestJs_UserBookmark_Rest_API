@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from "@nestjs/common";
 import { NoteService } from "./note.service";
 import { CreateNoteDto } from "./dtos/note.dto";
 import { JwtGuard } from "src/auth/guard/jwt.guard";
@@ -8,14 +8,14 @@ import { JwtGuard } from "src/auth/guard/jwt.guard";
 export class NoteController {
     constructor(private noteservice:NoteService){}
     
-    @Get(':bookmarkId')
-    async getAll(@Param() bookmarkId:number){
+    @Get('bybookmark/:bookmarkId')
+    async getAll(@Param('bookmarkId', ParseIntPipe)  bookmarkId:number){
         const result = await this.noteservice.getAllNotes(bookmarkId);
         return result.length > 0? result : "Failed";
     }
 
     @Get(':id')
-    async getById(@Param() id:number){
+    async getById(@Param('id', ParseIntPipe) id:number){
         const result = await this.noteservice.getNoteById(id);
         return result !== null ? result : "Failed";
     }
@@ -27,7 +27,7 @@ export class NoteController {
     }
 
     @Delete(':id')
-    async delete(@Param() id:number){
+    async delete(@Param('id', ParseIntPipe) id:number){
         const result = await this.noteservice.deleteNote(id);
         return result ? result : "Failed";
     }

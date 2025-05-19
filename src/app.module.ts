@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'; 
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
@@ -8,9 +8,7 @@ import { NoteModule } from './note/note.module';
 import { FolderModule } from './folder/folder.module';
 import { VisitModule } from './visit/visit.module';
 import { TagModule } from './tag/tag.module';
-import { SharedModule } from './shared/shared.module';
-import { NoteFolderService } from './note-folder/note-folder.service';
-import { ServiceController } from './service/service.controller';
+import { SharedModule } from './shared/shared.module'; 
 
 @Module({
   imports: [
@@ -18,8 +16,14 @@ import { ServiceController } from './service/service.controller';
     AuthModule, 
     UserModule, 
     BookmarkModule, 
-    PrismaModule, NoteModule, FolderModule, VisitModule, TagModule, SharedModule],
-  controllers: [ServiceController],
-  providers: [NoteFolderService],
+    PrismaModule, 
+    NoteModule, 
+    FolderModule, 
+    VisitModule, 
+    TagModule, 
+    SharedModule
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

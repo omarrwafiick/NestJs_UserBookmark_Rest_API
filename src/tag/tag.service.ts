@@ -19,12 +19,20 @@ export class TagService {
         }
     }
       
-    async createTag( dto: CreateTagDto):Promise<boolean>{
+    async createTag( dto: CreateTagDto, userid: number):Promise<boolean>{
         try {
+            const exists = await this.dbService.tag.findFirst({
+                where: {
+                    name: dto.name
+                }
+            });
+
+            if(exists) return false; 
+
             await this.dbService.tag.create({
                 data:{
                     name: dto.name,
-                    userId: dto.userId, 
+                    userId: userid, 
                 }
             });
             return true;

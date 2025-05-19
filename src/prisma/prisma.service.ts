@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class PrismaService extends PrismaClient {
-    constructor(config: ConfigService,private prisma: PrismaClient){
+    constructor(config: ConfigService){
         super({
             datasources:{
                 db:{
@@ -15,7 +15,7 @@ export class PrismaService extends PrismaClient {
     }
     async deleteById<T extends keyof PrismaClient>(model: T, id: number): Promise<boolean> {
         try {
-            const table = this.prisma[model] as any;
+            const table = this[model] as any;
             await table.delete({ where: { id } });
             return true;
         } catch {

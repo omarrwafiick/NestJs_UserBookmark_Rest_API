@@ -1,17 +1,17 @@
 import { IsNotEmpty, IsString } from "class-validator";
 
-export class CreateFolderDto{
+class Main{
     @IsString()
     @IsNotEmpty()
     name:string;
+}
+
+export class CreateFolderDto extends Main{ 
     @IsNotEmpty()
     userId
 }
 
-export class UpdateFolderDto{
-    @IsString()
-    @IsNotEmpty()
-    name:string;
+export class UpdateFolderDto extends Main{  
     @IsNotEmpty()
     bookmarkIds:number[]; 
 }

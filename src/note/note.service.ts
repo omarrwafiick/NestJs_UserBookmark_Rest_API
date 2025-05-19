@@ -33,7 +33,7 @@ export class NoteService {
 
     async createNote(dto: CreateNoteDto):Promise<boolean>{
         try {
-            const reachMax = await this.dbService.bookmark.findMany({
+            const reachMax = await this.dbService.bookmark.findFirst({
                 where:{
                     id: dto.bookmarkId
                 },
@@ -41,7 +41,9 @@ export class NoteService {
                     notes: true
                 }
             });
-            if(reachMax.length > 6) return false;
+            if (!reachMax) return false;
+            console.log(reachMax.notes.length)
+            if(reachMax.notes.length > 6) return false;
             await this.dbService.note.create({
                 data:{
                     title: dto.title,

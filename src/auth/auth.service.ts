@@ -35,16 +35,14 @@ export class AuthService{
                 if (error.code === 'P2002') {
                 throw new ForbiddenException('Credentials already taken');
                 }
-            }
-            console.error(error);
+            } 
             throw new InternalServerErrorException('Something went wrong');
             }
 
     }
 
     async login(dto:AuthDto):Promise<string|null>{
-        try { 
-            const hashedPassword = await argon.hash(dto.password); 
+        try {  
             const user = await this.dbService.user.findUnique({
                 where: {
                 email: dto.email,

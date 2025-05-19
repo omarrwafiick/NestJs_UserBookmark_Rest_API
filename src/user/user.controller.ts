@@ -8,7 +8,7 @@ import { UpdateUserDto } from './dtos/user.dto';
 @UseGuards(JwtGuard)
 @Controller('user')
 export class UserController {
-    constructor(private userservice: UserService){}
+    constructor(private userservice: UserService){} 
     @Get('data')
     async GetData(@GetUser() user:User){
         const { password, ...rest } = user;

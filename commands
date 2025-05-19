@@ -8,3 +8,5 @@ docker compose down
 npx prisma studio
 npx prisma migrate dev //name init
 nest g module //name
+
+npm run start:dev

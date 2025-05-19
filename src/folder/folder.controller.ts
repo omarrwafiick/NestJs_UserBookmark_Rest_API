@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UseGuards } from "@nestjs/common";
 import { FolderService } from "./folder.service";
 import { GetUser } from "src/auth/decorator/getuser.decorator";
 import { User } from "generated/prisma";
@@ -16,25 +16,25 @@ export class FolderController {
     }
 
     @Get(':id')
-    async getById(@Param() id:number){
+    async getById(@Param('id', ParseIntPipe) id:number){
         const result = await this.folderservice.getById(id);
         return result !== null ? result : "Failed";
     }
 
-    @Post(':id')
+    @Post('')
     async create(@Body() dto:CreateFolderDto){
         const result = await this.folderservice.createFolder(dto);
         return result ? result : "Failed";
     }
 
     @Put(':id')
-    async update(@Body() dto:UpdateFolderDto, @Param() id:number){
+    async update(@Body() dto:UpdateFolderDto, @Param('id', ParseIntPipe) id:number){
         const result = await this.folderservice.updateFolder(dto, id);
         return result ? result : "Failed";
     }
 
     @Delete(':id')
-    async delete(@Param() id:number){
+    async delete(@Param('id', ParseIntPipe) id:number){
         const result = await this.folderservice.deleteFolder(id);
         return result ? result : "Failed";
     }

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UseGuards } from "@nestjs/common";
 import { VisitService } from './visit.service';
 import { GetUser } from "src/auth/decorator/getuser.decorator";
 import { User } from "generated/prisma";
@@ -10,7 +10,7 @@ export class VisitController {
     constructor(private visitservice:VisitService){}
 
     @Get(':bookmarkid')
-    async getByBookmarkId(@Param() bookmarkid:number){
+    async getByBookmarkId(@Param('id', ParseIntPipe) bookmarkid:number){
         const result = await this.visitservice.getByBookmarkId(bookmarkid);
         return result.length > 0? result : "Nothing is shared with you";
     }

@@ -23,8 +23,9 @@ export class SharedService {
             }
     }
       
-    async createShare( dto: CreateSharedDto):Promise<boolean>{
+    async createShare(dto: CreateSharedDto, userid: number):Promise<boolean>{
         try {
+            if(userid === dto.sharedWithId) return false;
             await this.dbService.sharedBookmark.create({
                 data:{
                     bookmarkId: dto.bookmarkId,
